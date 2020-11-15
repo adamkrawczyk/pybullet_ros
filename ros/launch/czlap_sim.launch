@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- Parametrized sample launch file to run pybullet ros wrapper -->
+
+    <!-- partial configuration params for pybullet_ros node, rest will be loaded from config_file -->
+    <arg name="config_file" default="$(find pybullet_ros)/ros/config/robots/czlap_params.yaml" />
+    <!--<arg name="environment" default="$(find mbot_simulation_environments)/worlds/isr-testbed.world" />-->
+    <arg name="pybullet_gui" default="True" /> <!-- if true pybullet gui will pop -->
+    <arg name="robot_urdf_path" default="$(find urdf)/robot.urdf" />
+    <arg name="pause_simulation" default="False" /> <!-- if true, will boot with paused physics -->
+    <arg name="parallel_plugin_execution" default="True" />
+    <arg name="robot_pose_x" default="0.0" /> <!-- robot spawn pose is set here -->
+    <arg name="robot_pose_y" default="0.0" />
+    <arg name="robot_pose_z" default="1.0" />
+    <arg name="robot_pose_yaw" default="0.0" />
+    <arg name="fixed_base" default="False" /> <!-- if false, allow free movement of the robot -->
+
+    <!-- pybullet ros wrapper node -->
+    <node pkg="pybullet_ros" type="pybullet_ros_node" name="pybullet_ros" output="screen" required="true" >
+        <rosparam file="$(arg config_file)" command="load" />
+        <!--<param name="environment" value="$(arg environment)" />-->
+        <param name="pybullet_gui" value="$(arg pybullet_gui)" />
+        <param name="robot_urdf_path" value="$(arg robot_urdf_path)" />
+        <param name="pause_simulation" value="$(arg pause_simulation)" />
+        <param name="parallel_plugin_execution" value="$(arg parallel_plugin_execution)" />
+        <param name="robot_pose_x" value="$(arg robot_pose_x)" />
+        <param name="robot_pose_y" value="$(arg robot_pose_y)" />
+        <param name="robot_pose_z" value="$(arg robot_pose_z)" />
+        <param name="robot_pose_yaw" value="$(arg robot_pose_yaw)" />
+        <param name="fixed_base" value="$(arg fixed_base)" />
+    </node>
+
+</launch>
